@@ -8,168 +8,168 @@
   tags:
     - pamconfig
 
-- name: Oracle-recommended security limits
-  template:
-    src: oracle-seclimits.conf.j2
-    dest: /etc/security/limits.d/98-oracle.conf
-    backup: true
-  tags:
-    - seclimit
+# name: Oracle-recommended security limits
+# template:
+#   src: oracle-seclimits.conf.j2
+#   dest: /etc/security/limits.d/98-oracle.conf
+#   backup: true
+# tags:
+#   - seclimit
 
-- name: Add host to /etc/hosts if needed
-  lineinfile:
-    dest: /etc/hosts
-    regexp: ".*{{ ansible_fqdn }}$"
-    line: "{{ ansible_all_ipv4_addresses[0] }} {{ ansible_hostname }} {{ ansible_fqdn }}"
-    state: present
-  tags:
-    - etchosts
-
-#-----
-#
-#-----
-- name: Add the required oracle sysctl changes to a file in /etc/sysctl.d
-  template:
-    src: 98-oracle-sysctl.conf.j2
-    dest: /etc/sysctl.d/98-oracle-sysctl.conf
-    mode: '0644'
+# name: Add host to /etc/hosts if needed
+# lineinfile:
+#   dest: /etc/hosts
+#   regexp: ".*{{ ansible_fqdn }}$"
+#   line: "{{ ansible_all_ipv4_addresses[0] }} {{ ansible_hostname }} {{ ansible_fqdn }}"
+#   state: present
+# tags:
+#   - etchosts
 
 #-----
 #
 #-----
-- name: Install packages required by Oracle on RHEL
-  yum:
-    name: "{{ item }}"
-    state: installed
-  with_items: "{{ oracle_packages }}"
+# name: Add the required oracle sysctl changes to a file in /etc/sysctl.d
+# template:
+#   src: 98-oracle-sysctl.conf.j2
+#   dest: /etc/sysctl.d/98-oracle-sysctl.conf
+#   mode: '0644'
 
 #-----
 #
 #-----
-- name: User | Add group(s)
-  group:
-    name: "{{ item.group }}"
-    gid: "{{ item.gid }}"
-    state: present
-  with_items: "{{ oracle_groups }}"
-  tags:
-   - group
+# name: Install packages required by Oracle on RHEL
+# yum:
+#   name: "{{ item }}"
+#   state: installed
+# with_items: "{{ oracle_packages }}"
 
 #-----
 #
 #-----
-- name: User | Add Oracle user
-  user:
-    name: "{{ item.username }}"
-    group: "{{ item.primgroup }}"
-    groups: "{{ item.othergroups }}"
-    uid: "{{ item.uid }}"
-    generate_ssh_key: true
-    append: true
-    state: present
-    comment: "{{ item.comment }}"
-  with_items: "{{oracle_users}}"
+# name: User | Add group(s)
+# group:
+#   name: "{{ item.group }}"
+#   gid: "{{ item.gid }}"
+#   state: present
+# with_items: "{{ oracle_groups }}"
+# tags:
+#  - group
 
 #-----
 #
 #-----
-- name: User | Add Grid user
-  user:
-    name: "{{ item.username }}"
-    group: "{{ item.primgroup }}"
-    groups: "{{ item.othergroups }}"
-    uid: "{{ item.uid }}"
-    generate_ssh_key: true
-    append: true
-    state: present
-    comment: "{{ item.comment }}"
-  when: role_separation
-  with_items: "{{grid_users}}"
+# name: User | Add Oracle user
+# user:
+#   name: "{{ item.username }}"
+#   group: "{{ item.primgroup }}"
+#   groups: "{{ item.othergroups }}"
+#   uid: "{{ item.uid }}"
+#   generate_ssh_key: true
+#   append: true
+#   state: present
+#   comment: "{{ item.comment }}"
+# with_items: "{{oracle_users}}"
 
 #-----
 #
 #-----
-- name: User | Add Oracle user to sudoers.j2
-  template:
-    src: sudoers.j2
-    dest: /etc/sudoers.d/{{ item.username }}
-    owner: root
-    mode: 0600
-  with_items: "{{oracle_users}}"
+# name: User | Add Grid user
+# user:
+#   name: "{{ item.username }}"
+#   group: "{{ item.primgroup }}"
+#   groups: "{{ item.othergroups }}"
+#   uid: "{{ item.uid }}"
+#   generate_ssh_key: true
+#   append: true
+#   state: present
+#   comment: "{{ item.comment }}"
+# when: role_separation
+# with_items: "{{grid_users}}"
 
 #-----
 #
 #-----
-- name: User | Add Grid user to sudoers.j2
-  template:
-    src: sudoers.j2
-    dest: /etc/sudoers.d/{{ item.username }}
-    owner: root
-    mode: 0600
-  with_items: "{{grid_users}}"
-  when: role_separation
+# name: User | Add Oracle user to sudoers.j2
+# template:
+#   src: sudoers.j2
+#   dest: /etc/sudoers.d/{{ item.username }}
+#   owner: root
+#   mode: 0600
+# with_items: "{{oracle_users}}"
 
 #-----
 #
 #-----
-- name: Oracle hugepages
-  sysctl:
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
-    state: present
-    reload: true
-    ignoreerrors: true
-  with_items: "{{oracle_hugepages}}"
+# name: User | Add Grid user to sudoers.j2
+# template:
+#   src: sudoers.j2
+#   dest: /etc/sudoers.d/{{ item.username }}
+#   owner: root
+#   mode: 0600
+# with_items: "{{grid_users}}"
+# when: role_separation
 
 #-----
 #
 #-----
-- name: Set the ulimit script in /etc/profile.d
-  template:
-    src: 98-oracle-ulimit.j2
-    dest: /etc/profile.d/98-oracle-ulimit.sh
-    owner: root
-    group: root
-    mode: "u=rwx,g=rx,o=rx"
+# name: Oracle hugepages
+# sysctl:
+#   name: "{{ item.name }}"
+#   value: "{{ item.value }}"
+#   state: present
+#   reload: true
+#   ignoreerrors: true
+# with_items: "{{oracle_hugepages}}"
 
 #-----
 #
 #-----
-- name: Set the .aliases
-  template:
-    src: aliases.j2
-    dest: "/home/{{ item }}/.aliases"
-    owner: "{{ item }}"
-    group: oinstall
-    mode: "u=rw,g=r,o=r"
-  with_items:
-    - oracle
-    - grid
+# name: Set the ulimit script in /etc/profile.d
+# template:
+#   src: 98-oracle-ulimit.j2
+#   dest: /etc/profile.d/98-oracle-ulimit.sh
+#   owner: root
+#   group: root
+#   mode: "u=rwx,g=rx,o=rx"
 
 #-----
 #
 #-----
-- name: Set the .bashrc
-  template:
-    src: bashrc.j2
-    dest: "/home/{{ item }}/.bashrc"
-    owner: "{{ item }}"
-    group: oinstall
-    mode: "u=rw,g=r,o=r"
-  with_items:
-    - oracle
-    - grid
+# name: Set the .aliases
+# template:
+#   src: aliases.j2
+#   dest: "/home/{{ item }}/.aliases"
+#   owner: "{{ item }}"
+#   group: oinstall
+#   mode: "u=rw,g=r,o=r"
+# with_items:
+#   - oracle
+#   - grid
 
 #-----
 #
 #-----
-- name: Set the .bash_profile
-  template:
-    src: bash_profile.j2
-    dest: "/home/{{ item }}/.bash_profile"
-    owner: "{{ item }}"
-    group: oinstall
-    mode: "u=rw,g=r,o=r"
-  with_items:
-    - oracle
-    - grid
+# name: Set the .bashrc
+# template:
+#   src: bashrc.j2
+#   dest: "/home/{{ item }}/.bashrc"
+#   owner: "{{ item }}"
+#   group: oinstall
+#   mode: "u=rw,g=r,o=r"
+# with_items:
+#   - oracle
+#   - grid
+
+#-----
+#
+#-----
+# name: Set the .bash_profile
+# template:
+#   src: bash_profile.j2
+#   dest: "/home/{{ item }}/.bash_profile"
+#   owner: "{{ item }}"
+#   group: oinstall
+#   mode: "u=rw,g=r,o=r"
+# with_items:
+#   - oracle
+#   - grid
