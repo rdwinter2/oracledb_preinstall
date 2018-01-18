@@ -81,6 +81,7 @@ oracle_packages:
   - make
   - nfs-utils
   - net-tools
+  - openssh
   - smartmontools
   - sysstat
   - unixODBC

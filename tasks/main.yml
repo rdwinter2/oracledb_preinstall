@@ -1,5 +1,13 @@
 ---
 
+# /etc/resolv.conf
+# options attempts: 2
+# options timeout: 1
+# search <domain>
+# nameserver ...
+
+# ntp vs. chrony
+
 - name: Oracle-recommended PAM config
   lineinfile:
     dest: /etc/pam.d/login
