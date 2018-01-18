@@ -6,4 +6,4 @@
     apache_listen_port_ssl: 443
 
   roles:
-    - role_under_test
+    - oracledb_preinstall
