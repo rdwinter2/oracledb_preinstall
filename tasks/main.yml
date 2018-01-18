@@ -16,15 +16,6 @@
   tags:
     - seclimit
 
-- name: Add host to /etc/hosts if needed
-  lineinfile:
-    dest: /etc/hosts
-    regexp: ".*{{ ansible_fqdn }}$"
-    line: "{{ ansible_all_ipv4_addresses[0] }} {{ ansible_hostname }} {{ ansible_fqdn }}"
-    state: present
-  tags:
-    - etchosts
-
 - name: Add the required oracle sysctl changes to a file in /etc/sysctl.d
   template:
     src: 98-oracle-sysctl.conf.j2
