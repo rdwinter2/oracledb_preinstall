@@ -8,7 +8,7 @@
   tags:
     - pamconfig
 
-  name: Oracle-recommended security limits
+- name: Oracle-recommended security limits
   template:
     src: oracle-seclimits.conf.j2
     dest: /etc/security/limits.d/98-oracle.conf
@@ -16,7 +16,7 @@
   tags:
     - seclimit
 
-  name: Add host to /etc/hosts if needed
+- name: Add host to /etc/hosts if needed
   lineinfile:
     dest: /etc/hosts
     regexp: ".*{{ ansible_fqdn }}$"
@@ -25,19 +25,19 @@
   tags:
     - etchosts
 
-  name: Add the required oracle sysctl changes to a file in /etc/sysctl.d
+- name: Add the required oracle sysctl changes to a file in /etc/sysctl.d
   template:
     src: 98-oracle-sysctl.conf.j2
     dest: /etc/sysctl.d/98-oracle-sysctl.conf
     mode: '0644'
 
-  name: Install packages required by Oracle on RHEL
+- name: Install packages required by Oracle on RHEL
   yum:
     name: "{{ item }}"
     state: installed
   with_items: "{{ oracle_packages }}"
 
-  name: User | Add group(s)
+- name: User | Add group(s)
   group:
     name: "{{ item.group }}"
     gid: "{{ item.gid }}"
@@ -46,7 +46,7 @@
   tags:
    - group
 
-  name: User | Add Oracle user
+- name: User | Add Oracle user
   user:
     name: "{{ item.username }}"
     group: "{{ item.primgroup }}"
@@ -58,7 +58,7 @@
     comment: "{{ item.comment }}"
   with_items: "{{oracle_users}}"
 
-  name: User | Add Grid user
+- name: User | Add Grid user
   user:
     name: "{{ item.username }}"
     group: "{{ item.primgroup }}"
@@ -71,7 +71,7 @@
   when: role_separation
   with_items: "{{grid_users}}"
 
-  name: User | Add Oracle user to sudoers.j2
+- name: User | Add Oracle user to sudoers.j2
   template:
     src: sudoers.j2
     dest: /etc/sudoers.d/{{ item.username }}
@@ -79,7 +79,7 @@
     mode: 0600
   with_items: "{{oracle_users}}"
 
-  name: User | Add Grid user to sudoers.j2
+- name: User | Add Grid user to sudoers.j2
   template:
     src: sudoers.j2
     dest: /etc/sudoers.d/{{ item.username }}
@@ -88,7 +88,7 @@
   with_items: "{{grid_users}}"
   when: role_separation
 
-  name: Oracle hugepages
+- name: Oracle hugepages
   sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
@@ -97,7 +97,7 @@
     ignoreerrors: true
   with_items: "{{oracle_hugepages}}"
 
-  name: Set the ulimit script in /etc/profile.d
+- name: Set the ulimit script in /etc/profile.d
   template:
     src: 98-oracle-ulimit.j2
     dest: /etc/profile.d/98-oracle-ulimit.sh
@@ -105,7 +105,7 @@
     group: root
     mode: "u=rwx,g=rx,o=rx"
 
-  name: Set the .aliases
+- name: Set the .aliases
   template:
     src: aliases.j2
     dest: "/home/{{ item }}/.aliases"
@@ -116,7 +116,7 @@
     - oracle
     - grid
 
-  name: Set the .bashrc
+- name: Set the .bashrc
   template:
     src: bashrc.j2
     dest: "/home/{{ item }}/.bashrc"
@@ -127,7 +127,7 @@
     - oracle
     - grid
 
-  name: Set the .bash_profile
+- name: Set the .bash_profile
   template:
     src: bash_profile.j2
     dest: "/home/{{ item }}/.bash_profile"

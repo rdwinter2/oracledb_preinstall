@@ -61,8 +61,8 @@
       <file leaf-file-name="main.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tasks/main.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+            <state relative-caret-position="816">
+              <caret line="138" column="10" lean-forward="true" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -93,7 +93,12 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>template</find>
+      <find>hostname</find>
+      <find>name:</find>
     </findStrings>
+    <replaceStrings>
+      <replace>- name:</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -359,7 +364,14 @@
       <option name="project" value="LOCAL" />
       <updated>1516307545026</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="move columns over one space">
+      <created>1516308048711</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1516308048711</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -434,7 +446,8 @@
     <MESSAGE value="fix typo" />
     <MESSAGE value="another typo" />
     <MESSAGE value="add more tasks" />
-    <option name="LAST_COMMIT_MESSAGE" value="add more tasks" />
+    <MESSAGE value="move columns over one space" />
+    <option name="LAST_COMMIT_MESSAGE" value="move columns over one space" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -856,8 +869,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tasks/main.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+        <state relative-caret-position="816">
+          <caret line="138" column="10" lean-forward="true" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
           <folding />
         </state>
       </provider>
