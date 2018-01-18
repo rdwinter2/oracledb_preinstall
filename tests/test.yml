@@ -1,9 +1,7 @@
 ---
 - hosts: all
-  remote_user: root
-
-  vars:
-    apache_listen_port_ssl: 443
+  become: true
+  become_method: 'sudo'
 
   roles:
-    - oracledb_preinstall
+    - { role: oracledb_preinstall }
