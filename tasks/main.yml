@@ -1,8 +1,9 @@
 ---
 
-- name: Set the hostname
-  hostname:
-    name: "{{ hostname }}.{{ domain }}"
+# doesn't seem to work in docker
+#- name: Set the hostname
+#  hostname:
+#    name: "{{ hostname }}.{{ domain }}"
 
 - name: Set timeout and attempts in /etc/resolv.conf
   lineinfile:
