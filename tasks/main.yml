@@ -5,15 +5,16 @@
 #  hostname:
 #    name: "{{ hostname }}.{{ domain }}"
 
-- name: Set timeout and attempts in /etc/resolv.conf
-  lineinfile:
-    path: /etc/resolv.conf
-    state: present
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-  with_items:
-    - { regexp: '^options attempts:', line: 'options attempts: 2' }
-    - { regexp: '^options timeout:', line: 'options timeout: 1' }
+# can't update /etc/hosts, /etc/resolv.conf, & /etc/hostname in a container
+#- name: Set timeout and attempts in /etc/resolv.conf
+#  lineinfile:
+#    path: /etc/resolv.conf
+#    state: present
+#    regexp: "{{ item.regexp }}"
+#    line: "{{ item.line }}"
+#  with_items:
+#    - { regexp: '^options attempts:', line: 'options attempts: 2' }
+#    - { regexp: '^options timeout:', line: 'options timeout: 1' }
 
 # ntp vs. chrony
 
