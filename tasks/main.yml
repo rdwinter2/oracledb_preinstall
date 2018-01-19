@@ -1,16 +1,23 @@
 ---
 
-# /etc/resolv.conf
-# options attempts: 2
-# options timeout: 1
-# search <domain>
-# nameserver ...
+- name: Set the hostname
+  hostname:
+    name: "{{ hostname }}.{{ domain }}"
+
+- name: Set timeout and attempts in /etc/resolv.conf
+  lineinfile:
+    path: /etc/resolv.conf
+    state: present
+    line: "{{ item.line }}"
+  with_items:
+    - { line: 'options attempts: 2' }
+    - { line: 'options timeout: 1' }
 
 # ntp vs. chrony
 
 - name: Oracle-recommended PAM config
   lineinfile:
-    dest: /etc/pam.d/login
+    path: /etc/pam.d/login
     state: present
     line: "session    required     pam_limits.so"
   tags:

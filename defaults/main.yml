@@ -1,5 +1,7 @@
 ---
 
+hostname: db1
+domain: local.lab
 binaries_url: http://repo01/binaries
 
 role_separation: true
