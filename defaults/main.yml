@@ -1,41 +1,9 @@
 ---
 
-hostname: db1
-domain: local.lab
-binaries_url: http://repo01/binaries
-
 role_separation: true
 oracle_user: oracle
 grid_user: grid
 oracle_inventory_group: oinstall
-
-oracle_sid: orcl
-oracle_uniquename: "{{ oracle_sid }}"
-oracle_global_name: "{{ oracle_sid }}"
-sys_password: oracle1
-system_password: oracle1
-oracle_base: /u01/app/oracle
-oracle_version: 12.2.0
-oracle_home: "{{ oracle_base }}/product/{{ oracle_version }}/dbhome_1"
-sga_target: 600M
-pga_aggregate_target: 100M
-oracle_pdb: edb
-oracle_pdb_admin: admin
-oracle_pdb_admin_pw: oracle1
-
-jdk_file: jdk-8u144-linux-x64.rpm
-jdk_file_sha256: cdb016da0c509d7414ee3f0c15b2dae5092d9a77edf7915be4386d5127e8092f
-
-oracle_database:
-  file_name: linuxx64_12201_database.zip
-  checksum: 4170261901
-  sha256: 96ed97d21f15c1ac0cce3749da6c3dac7059bb60672d76b008103fc754d22dde
-
-grid_infrastructure: linuxx64_12201_grid_home.zip
-grid_infrastructure_checksum: 1523222538
-
-oracle_gsm: linuxx64_12201_gsm.zip
-oracle_gsm_checksum: 1199547259
 
 oracle_seclimits:
   - { name: 'soft nproc', value: 16384 }
@@ -46,11 +14,6 @@ oracle_seclimits:
   - { name: 'hard stack', value: 32768 }
   - { name: 'soft memlock', value: "{{ ((0.9 * ansible_memtotal_mb)*1024)|round|int }}" }
   - { name: 'hard memlock', value: "{{ ((0.9 * ansible_memtotal_mb)*1024)|round|int }}" }
-
-oracle_packages_old:
-  - compat-libstdc++-33.i686
-  - compat-libstdc++-33
-  - tuned-profiles-oracle
 
 oracle_packages:
   - binutils
@@ -120,14 +83,5 @@ oracle_hugepages:
 oracle_directories:
   - { dir: "/u01", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
   - { dir: "/u01/tmp", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
-  - { dir: "/u01/app", owner: "{{ grid_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
-  - { dir: "/u01/app/grid", owner: "{{ grid_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
-  - { dir: "/u01/app/{{ oracle_version }}/grid", owner: "{{ grid_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
-  - { dir: "/u01/app/oracle", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
-  - { dir: "/u01/app/oracle/product/{{ oracle_version }}/dbhome_1", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
   - { dir: "/u01/app/oraInventory", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
   - { dir: "/u01/software", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
-
-oracle_data_directories:
-  - { dir: "/u01/app/oracle/oradata/{{ oracle_sid }}/", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
-  - { dir: "/u01/app/oracle/oradata/{{ oracle_sid }}/pdbseed", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
