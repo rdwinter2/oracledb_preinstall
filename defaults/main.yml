@@ -1,5 +1,12 @@
 ---
 
+oracle_sid: orcl
+oracle_uniquename: "{{ oracle_sid }}"
+oracle_global_name: "{{ oracle_sid }}"
+oracle_base: /u01/app/oracle
+oracle_version: 12.2.0
+oracle_home: "{{ oracle_base }}/product/{{ oracle_version }}/dbhome_1"
+
 role_separation: true
 oracle_user: oracle
 grid_user: grid
