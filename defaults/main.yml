@@ -71,6 +71,8 @@ packages:
   - setools
   - setools-console
   - mcstrans
+  # Filerwall
+  - firewalld
 
 oracle_groups:
   - { group: "{{ oracle_inventory_group }}", gid: 54321, comment: "The Oracle Inventory Group" }
