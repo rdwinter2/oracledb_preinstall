@@ -23,6 +23,7 @@ oracle_seclimits:
   - { name: 'hard memlock', value: "{{ ((0.9 * ansible_memtotal_mb)*1024)|round|int }}" }
 
 packages:
+  # Required Oracle database packages
   - binutils
   - compat-libcap1
 #  - glibc.i686
@@ -58,8 +59,18 @@ packages:
   - sysstat
   - unixODBC
   - gcc-c++
-  - ntp # for time syncronization
-  - libselinux-python # for ansible to set SELinux
+  # for time synchronization
+  - ntp
+  # Packages for SELinux
+  - policycoreutils
+  - policycoreutils-python
+  - selinux-policy
+  - selinux-policy-targeted
+  - libselinux-utils
+  - setroubleshoot-server
+  - setools
+  - setools-console
+  - mcstrans
 
 oracle_groups:
   - { group: "{{ oracle_inventory_group }}", gid: 54321, comment: "The Oracle Inventory Group" }
