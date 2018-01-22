@@ -61,9 +61,9 @@
 
 # Enable disk UUID in *.vmx and set -g in /etc/scsi_id.config
 
-- name: Ensure /etc/sysconfig/ntpd exists
+- name: Ensure /etc/scsi_id.config exists
   file:
-    path: /etc/sysconfig/ntpd
+    path: /etc/scsi_id.config
     owner: root
     group: root
     mode: 0644
