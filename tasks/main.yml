@@ -13,10 +13,10 @@
   with_items: "{{ install_packages }}"
 
 # Enable SELinux
-- selinux:
-    policy: targeted
-    state: enforcing
-
+#- selinux:
+#    policy: targeted
+#    state: enforcing
+#
 - name: Ensure /etc/sysconfig/ntpd exists
   file:
     path: /etc/sysconfig/ntpd
