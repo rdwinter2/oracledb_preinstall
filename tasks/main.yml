@@ -28,6 +28,13 @@
     name: ntp
     state: present
 
+- name: Ensure /etc/sysconfig/ntpd exists
+  file:
+    path: /etc/sysconfig/ntpd
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Prevent ntp from syncing backwards
   lineinfile:
     path: /etc/sysconfig/ntpd
@@ -39,6 +46,11 @@
   notify:
     - restart ntp
 
+# Enable SELinux
+- selinux:
+    policy: targeted
+    state: enforcing
+
 # swap space
 # Create machine with some free disk space
 # swapon -s
@@ -47,6 +59,14 @@
 # /etc/fstab
 
 # Enable disk UUID in *.vmx and set -g in /etc/scsi_id.config
+
+- name: Ensure /etc/sysconfig/ntpd exists
+  file:
+    path: /etc/sysconfig/ntpd
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Make SCSI devices trusted
   lineinfile:
     path: /etc/scsi_id.config
