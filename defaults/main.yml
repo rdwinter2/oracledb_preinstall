@@ -59,6 +59,7 @@ install_packages:
   - sysstat
   - unixODBC
   - gcc-c++
+  - tuned
   # for time synchronization
   - ntp
   # Packages for SELinux
@@ -119,17 +120,17 @@ remove_packages:
 oracle_groups:
   - { group: "{{ oracle_inventory_group }}", gid: 54321, comment: "The Oracle Inventory Group" }
   - { group: dba, gid: 54322, comment: "The OSDBA group" }
-  - { group: oper, gid: 54323, comment: "The OSOPER group for Oracle Database" }
-  - { group: backupdba, gid: 54324, comment: "The OSBACKUPDBA group for Oracle Database" }
-  - { group: dgdba, gid: 54325, comment: "The OSDGDBA group for Oracle Data Guard" }
-  - { group: kmdba, gid: 54326, comment: "The OSKMDBA group for encyption key management" }
-  - { group: asmdba, gid: 54327, comment: "The OSDBA group for Oracle ASM" }
-  - { group: asmoper, gid: 54328, comment: "The OSOPER group for Oracle ASM" }
-  - { group: asmadmin, gid: 54320, comment: "The OSASM group for Oracle ASM Administration" }
+  - { group: asmdba, gid: 54323, comment: "The OSDBA group for Oracle ASM" }
+  - { group: asmoper, gid: 54324, comment: "The OSOPER group for Oracle ASM" }
+  - { group: asmadmin, gid: 54325, comment: "The OSASM group for Oracle ASM Administration" }
+  - { group: oper, gid: 54326, comment: "The OSOPER group for Oracle Database" }
+  - { group: backupdba, gid: 54327, comment: "The OSBACKUPDBA group for Oracle Database" }
+  - { group: dgdba, gid: 54328, comment: "The OSDGDBA group for Oracle Data Guard" }
+  - { group: kmdba, gid: 54329, comment: "The OSKMDBA group for encyption key management" }
   - { group: racdba, gid: 54330, comment: "The OSRACDBA group for oracle RAC Administration" }
 
 oracle_users:
- - { username: "{{ oracle_user }}", uid: 54321, primgroup: "{{ oracle_inventory_group }}", othergroups: "dba,asmdba,backupdba,dgdba,kmdba,racdba,oper", comment: "Oracle Software Owner" }
+ - { username: "{{ oracle_user }}", uid: 54321, primgroup: "{{ oracle_inventory_group }}", othergroups: "dba,oper,asmdba,racdba,backupdba,dgdba,kmdba", comment: "Oracle Software Owner" }
 grid_users:
  - { username: "{{ grid_user }}", uid: 54322, primgroup: "{{ oracle_inventory_group }}", othergroups: "dba,asmadmin,asmdba,asmoper,racdba", comment: "Grid Infrastructure Owner" }
 
