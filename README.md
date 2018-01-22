@@ -1,6 +1,6 @@
 # oracledb_preinstall [![Build Status](https://travis-ci.org/rdwinter2/oracledb_preinstall.png?branch=master)](https://travis-ci.org/rdwinter2/oracledb_preinstall)
 
-This role will prepare an EL7 host for Oracle database installation.
+This role will prepare an EL7 host for Oracle database installation. Some networking prerequisites are deferred due to limitations in testing inside Docker. 
 
 ## Requirements
 
@@ -34,3 +34,10 @@ Apache 2.0
 |Author|E-mail|
 |---|---|
 |Bob Winter|TBD|
+
+## References
+
+* [Deploying Oracle RAC Database 12c Release 2 on Red Hat Enterprise Linux 7](https://access.redhat.com/documentation/en-us/reference_architectures/2017/pdf/deploying_oracle_rac_database_12c_release_2_on_red_hat_enterprise_linux_7/Reference_Architectures-2017-Deploying_Oracle_RAC_Database_12c_Release_2_on_Red_Hat_Enterprise_Linux_7-en-US.pdf)
+* [Oracle Databases on VMware Best Practices Guide](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/solutions/vmware-oracle-databases-on-vmware-best-practices-guide.pdf)
+* [Oracle Databases on VMware RAC Deployment Guide](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/partners/oracle/vmware-oracle-rac-deploy-guide.pdf)
+* [UDEV SCSI Rules Configuration In Oracle Linux 5, 6 and 7](https://oracle-base.com/articles/linux/udev-scsi-rules-configuration-in-oracle-linux)

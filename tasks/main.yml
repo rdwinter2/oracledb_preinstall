@@ -17,6 +17,46 @@
 #    - { regexp: '^options timeout:', line: 'options timeout: 1' }
 
 # ntp vs. chrony
+# disable chrony and use ntp
+- name: Remove chrony
+  yum:
+    name: chrony
+    state: absent
+
+- name: Install ntp
+  yum:
+    name: ntp
+    state: present
+
+- name: Prevent ntp from syncing backwards
+  lineinfile:
+    path: /etc/sysconfig/ntpd
+    regexp: '^OPTIONS='
+    line: 'OPTIONS="-x -g"'
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart ntp
+
+# swap space
+# Create machine with some free disk space
+# swapon -s
+# free -m
+# df -h
+# /etc/fstab
+
+# Enable disk UUID in *.vmx and set -g in /etc/scsi_id.config
+- name: Make SCSI devices trusted
+  lineinfile:
+    path: /etc/scsi_id.config
+    state: present
+    line: "options=-g"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - scsi_id
 
 - name: Oracle-recommended PAM config
   lineinfile:
