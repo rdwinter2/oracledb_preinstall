@@ -23,10 +23,11 @@
     name: chrony
     state: absent
 
-- name: Install ntp
+- name: Install packages required by Oracle on EL7
   yum:
-    name: ntp
-    state: present
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ packages }}"
 
 - name: Ensure /etc/sysconfig/ntpd exists
   file:
@@ -99,12 +100,6 @@
     src: 98-oracle-sysctl.conf.j2
     dest: /etc/sysctl.d/98-oracle-sysctl.conf
     mode: '0644'
-
-- name: Install packages required by Oracle on RHEL
-  yum:
-    name: "{{ item }}"
-    state: installed
-  with_items: "{{ oracle_packages }}"
 
 - name: User | Add group(s)
   group:
