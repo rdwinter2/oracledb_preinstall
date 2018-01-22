@@ -103,10 +103,6 @@ remove_packages:
   - alsa-lib
   - btrfs-progs*
   - chrony
-  - cronie-anacron
-  - cronie
-  - crontabs
-  - iptables
   - kexec-tools
   - plymouth-scripts
   - ModemManager-glib
@@ -147,7 +143,7 @@ oracle_hugepages:
   - { name: vm.nr_hugepages, value: "{{ nr_hugepages }}" }
 
 oracle_directories:
-  - { dir: "/u01", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
-  - { dir: "/u01/tmp", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rx,o=rx" }
+  - { dir: "/u01", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
+  - { dir: "/u01/tmp", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
   - { dir: "/u01/app/oraInventory", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
   - { dir: "/u01/software", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
