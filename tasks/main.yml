@@ -61,24 +61,6 @@
 
 # Enable disk UUID in *.vmx and set -g in /etc/scsi_id.config
 
-- name: Ensure /etc/scsi_id.config exists
-  file:
-    path: /etc/scsi_id.config
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Make SCSI devices trusted
-  lineinfile:
-    path: /etc/scsi_id.config
-    state: present
-    line: "options=-g"
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-    - scsi_id
-
 - name: Oracle-recommended PAM config
   lineinfile:
     path: /etc/pam.d/login
@@ -201,3 +183,24 @@
   with_items:
     - oracle
     - grid
+
+- name: Allow ssh through the firewall
+  firewalld:
+    service: ssh
+    permanent: true
+    state: enabled
+    zone: public
+
+- name: Allow SQL*Net through the firewall
+  firewalld:
+    port: 1521/tcp
+    permanent: true
+    state: enabled
+    zone: public
+
+- name: Allow EM through the firewall
+  firewalld:
+    port: 5500/tcp
+    permanent: true
+    state: enabled
+    zone: public
