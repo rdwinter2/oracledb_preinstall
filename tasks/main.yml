@@ -13,10 +13,9 @@
   with_items: "{{ install_packages }}"
 
 # Enable SELinux
-#- selinux:
-#    policy: targeted
-#    state: enforcing
-#
+- selinux:
+    policy: targeted
+    state: enforcing
 
 # swap space
 # Create machine with some free disk space
@@ -43,7 +42,7 @@
   tags:
     - seclimit
 
-- name: Add the required oracle sysctl changes to a file in /etc/sysctl.d
+- name: Add the required oracle kernel changes to a file in /etc/sysctl.d
   template:
     src: 98-oracle-kernel.conf.j2
     dest: /etc/sysctl.d/98-oracle-sysctl.conf
@@ -149,3 +148,6 @@
   with_items:
     - oracle
     - grid
+
+- name: Switch tuned profile to oracle
+  shell: tuned-adm profile oracle

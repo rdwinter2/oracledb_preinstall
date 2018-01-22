@@ -101,7 +101,7 @@ remove_packages:
   - iwl3945-firmware
   - alsa-tools-firmware
   - alsa-lib
-  - btrfs-progs*
+  - btrfs-progs
   - chrony
   - kexec-tools
   - plymouth-scripts
@@ -143,6 +143,7 @@ oracle_hugepages:
   - { name: vm.nr_hugepages, value: "{{ nr_hugepages }}" }
 
 oracle_directories:
+  - { dir: "/u01/app/12.2.0/grid", owner: "{{ grid_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
   - { dir: "/u01", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
   - { dir: "/u01/tmp", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
   - { dir: "/u01/app/oraInventory", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
