@@ -1,33 +1,21 @@
 ---
 
-# doesn't seem to work in docker
-#- name: Set the hostname
-#  hostname:
-#    name: "{{ hostname }}.{{ domain }}"
-
-# can't update /etc/hosts, /etc/resolv.conf, & /etc/hostname in a container
-#- name: Set timeout and attempts in /etc/resolv.conf
-#  lineinfile:
-#    path: /etc/resolv.conf
-#    state: present
-#    regexp: "{{ item.regexp }}"
-#    line: "{{ item.line }}"
-#  with_items:
-#    - { regexp: '^options attempts:', line: 'options attempts: 2' }
-#    - { regexp: '^options timeout:', line: 'options timeout: 1' }
-
-# ntp vs. chrony
-# disable chrony and use ntp
-- name: Remove chrony
+- name: Remove unneeded packages
   yum:
-    name: chrony
+    name: "{{ item }}"
     state: absent
+  with_items: "{{ remove_packages }}"
 
 - name: Install packages required by Oracle on EL7
   yum:
     name: "{{ item }}"
     state: installed
-  with_items: "{{ packages }}"
+  with_items: "{{ install_packages }}"
+
+# Enable SELinux
+- selinux:
+    policy: targeted
+    state: enforcing
 
 - name: Ensure /etc/sysconfig/ntpd exists
   file:
@@ -46,11 +34,6 @@
     mode: 0644
   notify:
     - restart ntp
-
-# Enable SELinux
-- selinux:
-    policy: targeted
-    state: enforcing
 
 # swap space
 # Create machine with some free disk space
