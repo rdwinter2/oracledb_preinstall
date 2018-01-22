@@ -9,6 +9,7 @@ if [ "\$USER" = "{{ oracle_user }}" ]; then
   umask 022
 fi
 
+{% if role_separation==True %}
 if [ "\$USER" = "{{ grid_user }}" ]; then
   if [ "\$SHELL" = "/bin/ksh" ]; then
     ulimit -u 16384
@@ -18,3 +19,4 @@ if [ "\$USER" = "{{ grid_user }}" ]; then
   fi
   umask 022
 fi
+{% endif %}
