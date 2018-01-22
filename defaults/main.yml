@@ -60,6 +60,7 @@ install_packages:
   - unixODBC
   - gcc-c++
   - tuned
+  - tuned-profiles-oracle
   # for time synchronization
   - ntp
   # Packages for SELinux
