@@ -163,8 +163,8 @@
     enabled: yes
     state: started
 
-- name: Switch tuned profile to oracle
-  shell: tuned-adm profile oracle
+#- name: Switch tuned profile to oracle
+#  shell: tuned-adm profile oracle
 
 - name: Disable Transparent Huge Pages in grub
   lineinfile:
