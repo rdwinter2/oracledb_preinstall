@@ -1,5 +1,8 @@
 ---
 
+- name: Run update-grub
+  shell: cd && grub2-mkconfig -o /boot/grub2/grub.cfg
+
 # - name: restart ntp
 #   become: true
 #   service:

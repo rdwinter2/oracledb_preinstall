@@ -148,3 +148,10 @@ oracle_directories:
   - { dir: "/u01/tmp", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
   - { dir: "/u01/app/oraInventory", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
   - { dir: "/u01/software", owner: "{{ oracle_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
+
+tuned-profiles-oracle:
+  - { regexp: "^kernel.shmmax", line: "#kernel.shmmax = 18446744073692774399"}
+  - { regexp: "^kernel.shmall", line: "#kernel.shmall = 18446744073692774399"}
+  - { regexp: "^kernel.shmmni", line: "#kernel.shmmni = 4096"}
+  - { regexp: "^fs.file-max", line: "#fs.file-max = 9784283"}
+  - { regexp: "^kernel.panic_on_oops", line: "#kernel.panic_on_oops = 1"}
