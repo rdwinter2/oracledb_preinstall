@@ -152,9 +152,10 @@
 - name: Customize the tuned-profiles-oracle profile
   lineinfile:
     path: /usr/lib/tuned/oracle/tuned.conf
-    state: present
+    state: absent
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
+    backrefs: yes
   with_items: "{{ tuned }}"
 
 - name: Enable tuned service
