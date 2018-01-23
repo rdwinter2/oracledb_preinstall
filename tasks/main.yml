@@ -166,11 +166,13 @@
 #- name: Switch tuned profile to oracle
 #  shell: tuned-adm profile oracle
 
-- name: Disable Transparent Huge Pages in grub
-  lineinfile:
-    path: /etc/default/grub
-    state: present
-    regexp: '(^\s*kernel(\s+(?!transparent_hugepage=never)[\w=/\-\.\,]+)*)\s*$'
-    line: '\1 transparent_hugepage=never'
-    backrefs: yes
-  notify: Run update-grub
+# Docker doesn't have grub?
+# Better to do in kickstart
+# name: Disable Transparent Huge Pages in grub
+# lineinfile:
+#   path: /etc/default/grub
+#   state: present
+#   regexp: '(^\s*kernel(\s+(?!transparent_hugepage=never)[\w=/\-\.\,]+)*)\s*$'
+#   line: '\1 transparent_hugepage=never'
+#   backrefs: yes
+# notify: Run update-grub
