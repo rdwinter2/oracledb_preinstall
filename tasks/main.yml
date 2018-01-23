@@ -155,7 +155,7 @@
     state: present
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
-  with_items: "{{ tuned-profiles-oracle }}"
+  with_items: "{{ tuned }}"
 
 - name: Enable tuned service
   service:
