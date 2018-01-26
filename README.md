@@ -22,7 +22,7 @@ This role will prepare an EL7 host for Oracle database installation. Some networ
 * tuned-profiles-oracle
 
 ```
-KERNEL=="sd?", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="", SYMLINK+="oracleasm/disk3", OWNER="grid", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="", SYMLINK+="oracleasm/disk3", OWNER="grid", GROUP="oinstall", MODE="0660"
 
 /sbin/partprobe /dev/sdb1
 /sbin/udevadm control --reload-rules
