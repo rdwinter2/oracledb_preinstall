@@ -6,6 +6,7 @@ oracle_global_name: "{{ oracle_sid }}"
 oracle_base: /u01/app/oracle
 oracle_version: 12.2.0
 oracle_home: "{{ oracle_base }}/product/{{ oracle_version }}/dbhome_1"
+grid_home: "/u01/app/{{ oracle_version }}/grid"
 
 role_separation: true
 oracle_user: oracle
