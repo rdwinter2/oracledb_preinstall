@@ -76,6 +76,9 @@ install_packages:
   - mcstrans
   # Firerwall
   - firewalld
+  # GUI installer displayed weird characters without these
+  - dejavu-serif-fonts
+  - dejavu-fonts-common
 
 remove_packages:
   - aic94xx-firmware
