@@ -82,22 +82,12 @@
   when: role_separation
   with_items: "{{grid_users}}"
 
-- name: User | Add Oracle user to sudoers.j2
+- name: User | Add dba group to a sudoers file
   template:
-    src: sudoers.j2
-    dest: /etc/sudoers.d/{{ item.username }}
+    src: dba_sudoers.j2
+    dest: /etc/sudoers.d/dba_sudoers
     owner: root
     mode: 0600
-  with_items: "{{oracle_users}}"
-
-- name: User | Add Grid user to sudoers.j2
-  template:
-    src: sudoers.j2
-    dest: /etc/sudoers.d/{{ item.username }}
-    owner: root
-    mode: 0600
-  with_items: "{{grid_users}}"
-  when: role_separation
 
 - name: Oracle hugepages
   sysctl:
