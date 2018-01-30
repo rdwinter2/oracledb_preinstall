@@ -135,6 +135,10 @@ oracle_users:
 grid_users:
  - { username: "{{ grid_user }}", uid: 54322, primgroup: "{{ oracle_inventory_group }}", othergroups: "dba,asmadmin,asmdba,asmoper,racdba", comment: "Grid Infrastructure Owner" }
 
+transparent_hugepage_disable:
+  - {disable: "echo never >", path: /sys/kernel/mm/transparent_hugepage/enabled, rclocal: /etc/rc.d/rc.local}
+  - {disable: "echo never >", path: /sys/kernel/mm/transparent_hugepage/defrag, rclocal: /etc/rc.d/rc.local}
+             
 configure_hugepages: true
 configure_hugepages_by: percentage          # percentage/memory
 percent_hugepages: 50                       # Percentage (0-100) of total RAM to dedicate to hugepages, Configures vm.nr_hugepages
