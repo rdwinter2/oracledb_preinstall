@@ -70,3 +70,4 @@ Apache 2.0
 * [Oracle Databases on VMware Best Practices Guide](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/solutions/vmware-oracle-databases-on-vmware-best-practices-guide.pdf)
 * [Oracle Databases on VMware RAC Deployment Guide](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/partners/oracle/vmware-oracle-rac-deploy-guide.pdf)
 * [UDEV SCSI Rules Configuration In Oracle Linux 5, 6 and 7](https://oracle-base.com/articles/linux/udev-scsi-rules-configuration-in-oracle-linux)
+* [Github oravirt/ansible-oracle](https://github.com/oravirt/ansible-oracle/blob/a72988c393367697263bb4d47c9582d833bc1360/roles/orahost/defaults/main.yml)
