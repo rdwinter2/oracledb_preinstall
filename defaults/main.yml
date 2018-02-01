@@ -118,22 +118,36 @@ remove_packages:
   - iprutils
   - avahi
 
+oracle_inventory_group_gid: 54321
+dba_gid: 54322
+asmdba_gid: 54323
+asmoper_gid: 54324
+asmadmin_gid: 54325
+oper_gid: 54326
+backupdba_gid: 54327
+dgdba_gid: 54328
+kmdba_gid: 54329
+racdba_gid: 54330
+  
 oracle_groups:
-  - { group: "{{ oracle_inventory_group }}", gid: 54321, comment: "The Oracle Inventory Group" }
-  - { group: dba, gid: 54322, comment: "The OSDBA group" }
-  - { group: asmdba, gid: 54323, comment: "The OSDBA group for Oracle ASM" }
-  - { group: asmoper, gid: 54324, comment: "The OSOPER group for Oracle ASM" }
-  - { group: asmadmin, gid: 54325, comment: "The OSASM group for Oracle ASM Administration" }
-  - { group: oper, gid: 54326, comment: "The OSOPER group for Oracle Database" }
-  - { group: backupdba, gid: 54327, comment: "The OSBACKUPDBA group for Oracle Database" }
-  - { group: dgdba, gid: 54328, comment: "The OSDGDBA group for Oracle Data Guard" }
-  - { group: kmdba, gid: 54329, comment: "The OSKMDBA group for encyption key management" }
-  - { group: racdba, gid: 54330, comment: "The OSRACDBA group for oracle RAC Administration" }
+  - { group: "{{ oracle_inventory_group }}", gid: "{{ oracle_inventory_group_gid }}", comment: "The Oracle Inventory Group" }
+  - { group: dba, gid: "{{ dba_gid }}", comment: "The OSDBA group" }
+  - { group: asmdba, gid: "{{ asmdba_gid }}", comment: "The OSDBA group for Oracle ASM" }
+  - { group: asmoper, gid: "{{ asmoper_gid }}", comment: "The OSOPER group for Oracle ASM" }
+  - { group: asmadmin, gid: "{{ asmadmin_gid }}", comment: "The OSASM group for Oracle ASM Administration" }
+  - { group: oper, gid: "{{ oper_gid }}", comment: "The OSOPER group for Oracle Database" }
+  - { group: backupdba, gid: "{{ backupdba_gid }}", comment: "The OSBACKUPDBA group for Oracle Database" }
+  - { group: dgdba, gid: "{{ dgdba_gid }}", comment: "The OSDGDBA group for Oracle Data Guard" }
+  - { group: kmdba, gid: "{{ kmdba_gid }}", comment: "The OSKMDBA group for encyption key management" }
+  - { group: racdba, gid: "{{ racdba_gid }}", comment: "The OSRACDBA group for oracle RAC Administration" }
+
+oracle_user_uid: 54321
+grid_user_uid: 54322
 
 oracle_users:
- - { username: "{{ oracle_user }}", uid: 54321, primgroup: "{{ oracle_inventory_group }}", othergroups: "dba,oper,asmdba,racdba,backupdba,dgdba,kmdba", comment: "Oracle Software Owner" }
+ - { username: "{{ oracle_user }}", uid: "{{ oracle_user_uid }}", primgroup: "{{ oracle_inventory_group }}", othergroups: "dba,oper,asmdba,racdba,backupdba,dgdba,kmdba", comment: "Oracle Software Owner" }
 grid_users:
- - { username: "{{ grid_user }}", uid: 54322, primgroup: "{{ oracle_inventory_group }}", othergroups: "dba,asmadmin,asmdba,asmoper,racdba", comment: "Grid Infrastructure Owner" }
+ - { username: "{{ grid_user }}", uid: "{{ grid_user_uid }}", primgroup: "{{ oracle_inventory_group }}", othergroups: "dba,asmadmin,asmdba,asmoper,racdba", comment: "Grid Infrastructure Owner" }
 
 transparent_hugepage_disable:
   - {disable: "echo never >", path: /sys/kernel/mm/transparent_hugepage/enabled, rclocal: /etc/rc.d/rc.local}

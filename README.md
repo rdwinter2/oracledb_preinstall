@@ -3,6 +3,8 @@
 This role will prepare an EL7 host for Oracle database installation. Some networking prerequisites are deferred due to limitations in testing inside Docker. 
 
 * packages
+	* added
+	* removed
 * SELinux
 * PAM config
     * /etc/pam.d/login
