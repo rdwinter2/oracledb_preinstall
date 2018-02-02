@@ -24,13 +24,14 @@ oracle_seclimits:
   - { name: 'hard memlock', value: "{{ ((0.9 * ansible_memtotal_mb)*1024)|round|int }}" }
 
 oracle_packages: &oracle_packages
-  oracle_packages:
+#  oracle_packages:
+    - bc
     - binutils
     - compat-libcap1
+    - compat-libstdc++
     - glibc
     - glibc-devel
     - ksh
-    - libaio.i686
     - libaio
     - libaio-devel
     - libgcc
@@ -39,16 +40,14 @@ oracle_packages: &oracle_packages
     - make
     - nfs-utils
     - net-tools
-    - openssh
     - smartmontools
     - sysstat
     - unixODBC
-    - gcc-c++
     - tuned
     - tuned-profiles-oracle
 
 oracle_x11_packages: &oracle_x11_packages
-  oracle_x11_packages:
+#  oracle_x11_packages:
     - libX11
     - libXau
     - libXi
@@ -58,40 +57,11 @@ oracle_x11_packages: &oracle_x11_packages
     - dejavu-serif-fonts
     - dejavu-fonts-common
 
-oracle_32bit_packages: &oracle_32bit_packages
-  oracle_32bit_packages:
-    - glibc.i686
-    - glibc-devel.i686
-    - libaio-devel.i686
-    - libX11.i686
-    - libXau.i686
-    - libXi.i686
-    - libXtst.i686
-    - libgcc.i686
-    - libstdc++.i686
-    - libstdc++-devel.i686
-    - libxcb.i686
-
-packages_not_in_the_docker_image: &packages_not_in_the_docker_image
-  packages_not_in_the_docker_image:
-    # Packages for SELinux
-    - policycoreutils
-    - policycoreutils-python
-    - selinux-policy
-    - selinux-policy-targeted
-    - libselinux-utils
-    - setroubleshoot-server
-    - setools
-    - setools-console
-    - mcstrans
-    # Firerwall
-    - firewalld
-
 # https://chromatichq.com/blog/untangling-ansibles-loops
 # https://markusholtermann.eu/2016/04/reference-variables-in-ansible-yaml/
 install_packages:
-  <<: *oracle_packages
-  <<: *oracle_x11_packages
+  - *oracle_packages
+  - *oracle_x11_packages
 
 remove_packages:
   - aic94xx-firmware
