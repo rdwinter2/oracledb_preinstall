@@ -1,6 +1,6 @@
 ---
 
-- name: Remove unneeded packages
+- name: Remove undesireable packages
   yum:
     name: "{{ item }}"
     state: absent
@@ -11,20 +11,6 @@
     name: "{{ item }}"
     state: installed
   with_items: "{{ install_packages }}"
-
-# Enable SELinux
-- selinux:
-    policy: targeted
-    state: enforcing
-
-# swap space
-# Create machine with some free disk space
-# swapon -s
-# free -m
-# df -h
-# /etc/fstab
-
-# Enable disk UUID in *.vmx and set -g in /etc/scsi_id.config
 
 - name: Oracle-recommended PAM config
   lineinfile:
@@ -68,6 +54,8 @@
     state: present
     comment: "{{ item.comment }}"
   with_items: "{{oracle_users}}"
+  tags:
+    - user
 
 - name: User | Add Grid user
   user:
@@ -81,6 +69,8 @@
     comment: "{{ item.comment }}"
   when: role_separation
   with_items: "{{grid_users}}"
+  tags:
+    - user
 
 - name: User | Add dba group to a sudoers file
   template:

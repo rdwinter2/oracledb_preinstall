@@ -23,62 +23,45 @@ oracle_seclimits:
   - { name: 'soft memlock', value: "{{ ((0.9 * ansible_memtotal_mb)*1024)|round|int }}" }
   - { name: 'hard memlock', value: "{{ ((0.9 * ansible_memtotal_mb)*1024)|round|int }}" }
 
+oracle_packages: &oracle_packages
+#  oracle_packages:
+    - bc
+    - binutils
+    - compat-libcap1
+    - compat-libstdc++
+    - glibc
+    - glibc-devel
+    - ksh
+    - libaio
+    - libaio-devel
+    - libgcc
+    - libstdc++
+    - libstdc++-devel
+    - make
+    - nfs-utils
+    - net-tools
+    - smartmontools
+    - sysstat
+    - unixODBC
+    - tuned
+    - tuned-profiles-oracle
+
+oracle_x11_packages: &oracle_x11_packages
+#  oracle_x11_packages:
+    - libX11
+    - libXau
+    - libXi
+    - libXtst
+    - libxcb
+    # GUI installer displayed weird characters without these
+    - dejavu-serif-fonts
+    - dejavu-fonts-common
+
+# https://chromatichq.com/blog/untangling-ansibles-loops
+# https://markusholtermann.eu/2016/04/reference-variables-in-ansible-yaml/
 install_packages:
-  # Required Oracle database packages
-  - binutils
-  - compat-libcap1
-#  - glibc.i686
-  - glibc
-#  - glibc-devel.i686
-  - glibc-devel
-  - ksh
-  - libaio.i686
-  - libaio
-#  - libaio-devel.i686
-  - libaio-devel
-#  - libX11.i686
-  - libX11
-#  - libXau.i686
-  - libXau
-#  - libXi.i686
-  - libXi
-#  - libXtst.i686
-  - libXtst
-#  - libgcc.i686
-  - libgcc
-#  - libstdc++.i686
-  - libstdc++
-#  - libstdc++-devel.i686
-  - libstdc++-devel
-#  - libxcb.i686
-  - libxcb
-  - make
-  - nfs-utils
-  - net-tools
-  - openssh
-  - smartmontools
-  - sysstat
-  - unixODBC
-  - gcc-c++
-  - tuned
-  - tuned-profiles-oracle
-  # for time synchronization
-  - ntp
-  # Packages for SELinux
-  - policycoreutils
-  - policycoreutils-python
-  - selinux-policy
-  - selinux-policy-targeted
-  - libselinux-utils
-  - setroubleshoot-server
-  - setools
-  - setools-console
-  - mcstrans
-  # Firerwall
-  - firewalld
-  # GUI installer displayed weird characters without these
-  - dejavu-serif-fonts
-  - dejavu-fonts-common
+  - *oracle_packages
+  - *oracle_x11_packages
 
 remove_packages:
   - aic94xx-firmware
