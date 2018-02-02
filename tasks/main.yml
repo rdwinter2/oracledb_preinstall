@@ -10,8 +10,7 @@
   yum:
     name: "{{ item }}"
     state: installed
-  with_flattened:
-    - "{{ install_packages }}"
+  with_items: "{{ install_packages }}"
 
 - name: Oracle-recommended PAM config
   lineinfile:
