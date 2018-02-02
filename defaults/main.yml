@@ -28,7 +28,7 @@ oracle_packages: &oracle_packages
     - bc
     - binutils
     - compat-libcap1
-    - compat-libstdc++
+#    - compat-libstdc++ # No package matching 'compat-libstdc++' found
     - glibc
     - glibc-devel
     - ksh
