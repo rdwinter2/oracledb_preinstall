@@ -1,8 +1,8 @@
- # {{ ansible_managed }}
+# {{ ansible_managed }}
 
 #%dba ALL=(ALL) NOPASSWD: ALL
 
-%dba ALL=(ALL) NOPASSWD: /
+#%dba ALL=(ALL) NOPASSWD: /
 %dba ALL=(ALL) NOPASSWD: {{ oracle_home }}/root.sh
 %dba ALL=(ALL) NOPASSWD: /u01/app/oraInventory/orainstRoot.sh
 %dba ALL=(ALL) NOPASSWD: /bin/firewall-cmd --list-all
