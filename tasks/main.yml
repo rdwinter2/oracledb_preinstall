@@ -86,7 +86,7 @@
     state: present
     reload: true
     ignoreerrors: true
-  with_items: "{{oracle_hugepages}}"
+  with_items: "{{ oracle_hugepages }}"
 
 - name: Set the ulimit script in /etc/profile.d
   template:
