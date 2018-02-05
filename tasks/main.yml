@@ -29,7 +29,7 @@
     - seclimit
 
 - name: Add the required oracle kernel changes to a file in /etc/sysctl.d
-  template:0
+  template:
     src: 98-oracle-kernel.conf.j2
     dest: /etc/sysctl.d/98-oracle-kernel.conf
     mode: '0644'
