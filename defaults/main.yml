@@ -45,6 +45,7 @@ oracle_packages: &oracle_packages
     - unixODBC
     - tuned
     - tuned-profiles-oracle
+    - gcc-c++
 
 oracle_x11_packages: &oracle_x11_packages
 #  oracle_x11_packages:
@@ -146,6 +147,13 @@ nr_hugepages: "{% if configure_hugepages==True%}{% if configure_hugepages_by|low
 
 oracle_hugepages:
   - { name: vm.nr_hugepages, value: "{{ nr_hugepages }}" }
+
+oracle-kernel:
+  - { name: "net.core.rmem_default", value: 4194304 }
+  - { name: "net.core.wmem_default", value: 262144 }
+  - { name: "net.core.rmem_max", value: 4194304 }
+  - { name: "net.core.wmem_max", value: 1048576 }
+  - { name: "fs.file-max", value: 807069 }
 
 oracle_directories:
   - { dir: "/u01/app/12.2.0/grid", owner: "{{ grid_user }}", group: "{{ oracle_inventory_group }}", mode: "u=rwx,g=rwx,o=rx" }
