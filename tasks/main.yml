@@ -29,10 +29,21 @@
     - seclimit
 
 - name: Add the required oracle kernel changes to a file in /etc/sysctl.d
-  template:
+  template:0
     src: 98-oracle-kernel.conf.j2
-    dest: /etc/sysctl.d/98-oracle-sysctl.conf
+    dest: /etc/sysctl.d/98-oracle-kernel.conf
     mode: '0644'
+
+# set in 98-oracle-kernel.conf
+#- name: Make some of the same settings in /etc/sysctl.conf
+#  sysctl:
+#    name: "{{ item.name }}"
+#    value: "{{ item.value }}"
+#    state: present
+#    reload: true
+#    ignoreerrors: true
+#  with_items: "{{ oracle-kernel }}"
+
 
 - name: User | Add group(s)
   group:
@@ -79,15 +90,6 @@
     owner: root
     mode: 0600
 
-- name: Oracle hugepages
-  sysctl:
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
-    state: present
-    reload: true
-    ignoreerrors: true
-  with_items: "{{ oracle_hugepages }}"
-
 - name: Set the ulimit script in /etc/profile.d
   template:
     src: 99-oracle-grid.sh.j2
@@ -132,13 +134,13 @@
 - name: Customize the tuned-profiles-oracle profile
   lineinfile:
     path: /usr/lib/tuned/oracle/tuned.conf
-    state: absent
+    state: present
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     backrefs: yes
   with_items: "{{ tuned }}"
 
-- name: Enable tuned service
+- name: Start and enable tuned service
   service:
     name: tuned
     enabled: yes
