@@ -33,6 +33,8 @@
     src: 98-oracle-kernel.conf.j2
     dest: /etc/sysctl.d/98-oracle-kernel.conf
     mode: '0644'
+  notify: Run oracle-kernel.conf
+
 
 # set in 98-oracle-kernel.conf
 #- name: Make some of the same settings in /etc/sysctl.conf
