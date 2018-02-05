@@ -1,5 +1,8 @@
 ---
 
+hostname: localhost
+domain: localdomain
+
 oracle_sid: orcl
 oracle_uniquename: "{{ oracle_sid }}"
 oracle_global_name: "{{ oracle_sid }}"
@@ -46,6 +49,7 @@ oracle_packages: &oracle_packages
     - tuned
     - tuned-profiles-oracle
     - gcc-c++
+    - unzip
 
 oracle_x11_packages: &oracle_x11_packages
 #  oracle_x11_packages:

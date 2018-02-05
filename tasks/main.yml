@@ -1,5 +1,17 @@
 ---
 
+- name: Are we running inside a docker container
+  stat:
+    path: /.dockerenv
+  register: docker
+
+- name: Set the hostname
+  hostname:
+    name: "{{ hostname }}.{{ domain }}"
+  when: docker.stat.exists == false
+
+#- name: update /etc/hosts
+
 - name: Remove undesireable packages
   yum:
     name: "{{ item }}"
