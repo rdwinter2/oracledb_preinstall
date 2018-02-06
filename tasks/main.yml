@@ -10,6 +10,16 @@
     name: "{{ hostname }}.{{ domain }}"
   when: docker.stat.exists == false
 
+
+#- name: Add host to /etc/hosts if needed
+#  lineinfile:
+#    dest: /etc/hosts
+#    regexp: ".*{{ ansible_fqdn }}$"
+#    line: "{{ ansible_all_ipv4_addresses[0] }} {{ ansible_hostname }} {{ ansible_fqdn }}"
+#    state: present
+#  tags:
+#    - etchosts
+
 #- name: update /etc/hosts
 
 - name: Remove undesireable packages

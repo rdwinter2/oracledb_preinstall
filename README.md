@@ -37,9 +37,11 @@ N/A
 
 ## Role Variables
 
-|Name|description|type|default|
-|---|---|---|---|
-|N/A|N/A|N/A|N/A|
+Name | description | type | default
+--- | --- | --- | ---
+hostname | | | localhost
+domain | | localdomain
+N/A | N/A | N/A | N/A
 
 ## Dependencies
 
