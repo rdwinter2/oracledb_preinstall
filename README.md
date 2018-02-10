@@ -2,7 +2,7 @@
 
 This role will prepare an EL7 host for Oracle database installation. Some networking prerequisites are deferred due to limitations in testing inside Docker. 
 
-* prereqs
+* prereq checks
     * kernel version
     * memory
     * /tmp
