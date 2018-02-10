@@ -3,12 +3,52 @@
 - name: Are we running inside a docker container
   stat:
     path: /.dockerenv
-  register: docker
+  register: dockerenv
+
+#    * kernel version
+# Red Hat Enterprise Linux 7: 3.10.0-123.el7.x86_64 or later
+
+#    * memory
+#    * /tmp
+#    * swap
+#    * /u01
+# Minimum local disk storage space for Oracle software
+#  For Linux x86-64:
+#  At least 8.6 GB for an Oracle Grid Infrastructure for a standalone server installation.
+#  At least 7.5 GB for Oracle Database Enterprise Edition.
+
+#    * system architecture
+# uname -m
+# x86_64
+
+# df --block-size=1G /u01 | awk 'END { print $4 }'
+
+# Disk space allocated to the /tmp directory
+#
+#  At least 1 GB of space in the /tmp directory.
+
+# Swap space allocation relative to RAM (Oracle Database)
+#
+# Between 1 GB and 2 GB: 1.5 times the size of the RAM
+# Between 2 GB and 16 GB: Equal to the size of the RAM
+# More than 16 GB: 16 GB
+# Note: If you enable HugePages for your Linux servers,
+# then you should deduct the memory allocated to HugePages
+# from the available RAM before calculating swap space.
+
+# Swap space allocation relative to RAM (Oracle Restart)
+#
+# Between 8 GB and 16 GB: Equal to the size of the RAM
+# More than 16 GB: 16 GB
+# Note: If you enable HugePages for your Linux servers,
+# then you should deduct the memory allocated to HugePages
+# from the available RAM before calculating swap space.
+
 
 - name: Set the hostname
   hostname:
     name: "{{ hostname }}.{{ domain }}"
-  when: docker.stat.exists == false
+  when: not dockerenv.stat.exists
 
 - name: Add host to /etc/hosts if needed
   lineinfile:
