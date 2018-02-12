@@ -44,6 +44,21 @@
 #  At least 8.6 GB for an Oracle Grid Infrastructure for a standalone server installation.
 #  At least 7.5 GB for Oracle Database Enterprise Edition.
 
+- name: Check to see if /u01 exists
+  stat:
+    path: /u01
+  register: u01_exists
+  failed_when: not u01_exists.stat.exist
+
+# TODO
+# create logical volume for /u01
+# create filesystem
+
+- name: Check if the free space on /u01 meets the minimum
+  shell: /usr/bin/df --block-size=1G /u01 | awk 'END { print $4 }'
+  register: u01_size
+  failed_when: u01_size.stdout | int < {{ u01_size_gb }}
+
 #    * system architecture
 # uname -m
 # x86_64
