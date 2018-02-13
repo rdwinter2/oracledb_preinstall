@@ -2,9 +2,16 @@
 
 This role will prepare an EL7 host for Oracle database installation. Some networking prerequisites are deferred due to limitations in testing inside Docker. 
 
-* packages
-	* added
-	* removed
+* prereq checks
+    * kernel version
+    * memory
+    * /tmp
+    * swap
+    * /u01
+    * system architecture
+* rpm packages
+	* add required
+	* remove conflicting
 * SELinux
 * PAM config
     * /etc/pam.d/login
@@ -19,9 +26,12 @@ This role will prepare an EL7 host for Oracle database installation. Some networ
     * .aliases
 * sudoers
 * hugepages
+    * disable transparent hugepages
+    * set hugepages
 * ulimit
     * /etc/profile.d/
 * tuned-profiles-oracle
+* ORAchk
 
 ```
 KERNEL=="sd?", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="", SYMLINK+="oracleasm/disk3", OWNER="grid", GROUP="oinstall", MODE="0660"
@@ -37,9 +47,11 @@ N/A
 
 ## Role Variables
 
-|Name|description|type|default|
-|---|---|---|---|
-|N/A|N/A|N/A|N/A|
+Name | description | type | default
+--- | --- | --- | ---
+hostname | | | localhost
+domain | | localdomain
+N/A | N/A | N/A | N/A
 
 ## Dependencies
 
@@ -73,3 +85,5 @@ MIT
 * [Oracle Databases on VMware RAC Deployment Guide](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/partners/oracle/vmware-oracle-rac-deploy-guide.pdf)
 * [UDEV SCSI Rules Configuration In Oracle Linux 5, 6 and 7](https://oracle-base.com/articles/linux/udev-scsi-rules-configuration-in-oracle-linux)
 * [Github oravirt/ansible-oracle](https://github.com/oravirt/ansible-oracle/blob/a72988c393367697263bb4d47c9582d833bc1360/roles/orahost/defaults/main.yml)
+* [Installation Guide for Linux](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/ladbi/server-configuration-checklist-for-oracle-database-installation.html)
+* [	ORAchk - Health Checks for the Oracle Stack (Doc ID 1268927.2)](https://support.oracle.com/epmos/faces/DocumentDisplay?_afrLoop=25321399487020&id=1268927.2&_afrWindowMode=0&_adf.ctrl-state=1694ohstq3_4)
